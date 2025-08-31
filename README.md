@@ -18,17 +18,16 @@ Important: This tool is for educational purposes only and is not a substitute fo
 ## Workflow
 
 ![Workflow Overview](resources/workflow.png)
-*MediCheck AI workflow diagram showing the step-by-step analysis process*
 
 ## Quick start
 
 Prerequisites:
-- Python 3.13+
+- Python 3.10+ (tested with 3.10, 3.11, 3.12, 3.13)
 - API keys (provider of your choice) and Tavily key if using web research
 
 1) Clone and enter the repo
 ```bash
-git clone <your-fork-or-repo>
+git clone https://github.com/amajai/medcheck-ai.git
 cd medcheck-ai
 ```
 
@@ -103,6 +102,7 @@ Follow the prompts to enter symptoms and optional medical history. The report wi
 - `utils.py` — LLM creation, Tavily search helpers, summarization utilities
 - `tools.py` — LangChain tools bound to the LLM (search, analyze, recommend, escalate)
 - `medical_reports/` — Saved markdown reports
+- `resources/` — Screenshots and diagrams (workflow.png, screenshot.png)
 - `pyproject.toml` — Project metadata and dependencies
 
 ## How it works (architecture)
@@ -115,7 +115,21 @@ The app composes a LangGraph state machine with these nodes:
 5. `escalation_advice_node` — Generates urgent guidance if the case is classified as urgent
 6. `generate_medical_report` — Produces and saves a comprehensive markdown report
 
-The LLM provider and model are selected via environment variables and instantiated in `utils.create_llm()` using LangChain’s `init_chat_model`.
+The LLM provider and model are selected via environment variables and instantiated in `utils.create_llm()` using LangChain's `init_chat_model`.
+
+## Example Usage
+
+Here's a typical workflow:
+
+1. **Start the app**: `streamlit run streamlit_app.py`
+2. **Enter symptoms**: "I have a persistent headache for 3 days, mild fever, and fatigue"
+3. **Click Start Analysis**: The system analyzes symptoms and shows possible conditions
+4. **Provide medical history**: When prompted, enter relevant medical background
+5. **Review results**: Get recommendations, urgency level, and care suggestions
+6. **Download report**: Save the comprehensive medical analysis as a markdown file
+
+The entire process takes 1-2 minutes and provides structured, educational medical information.
+
 
 ## Disclaimer
 
